@@ -6,5 +6,8 @@
     object-position: 50% 30%;
 }
 .image{
-    transition: all linear 0.2s;
+    transition: all linear 0.11s;
+}
+.hoveredText{
+    transition: all ease 0.3s;
 }

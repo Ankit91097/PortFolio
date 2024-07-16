@@ -1,9 +1,14 @@
 import { motion } from 'framer-motion'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
+import HoverText from './HoverText'
 
 const TextDiv = () => {
     const overlayRef = useRef(null)
     const hoverRef = useRef(null)
+
+    const textArray=["TWICE","The Damai","FABRIC","Aanstekelijk"]
+
+    const [imageScroll, setimageScroll] = useState(0)
 
     const mouseEntering=()=>{
       hoverRef.current.style.transform='translate(-50%,-50%) scale(1)'
@@ -24,7 +29,13 @@ const TextDiv = () => {
      onMouseMove={(e)=>{mouseMoving(e)}}
       >
         <div ref={hoverRef} className='image absolute overflow-hidden top-0 -translate-x-1/2 -translate-y-1/2 h-[16vw] w-[17vw] bg-red-600 '>
-        <motion.div className='h-full w-full'>
+        <motion.div animate={{
+          transform:`translateY(-${imageScroll}%)`
+        }}
+        transition={{
+          duration:0.3
+        }}
+         className='h-full w-full'>
             <img className='h-full w-full object-cover' src="https://dennissnellenberg.com/media/pages/work/twice/0ab7e43954-1710404752/thumbnail-twice-810x810-crop-q72.jpg" alt="" />
             <img className='h-full w-full object-cover'  src="https://dennissnellenberg.com/media/pages/work/the-damai/b511d32d21-1710452224/thumbnail-thedamai-v2-810x810-crop-q72.jpg" alt="" />
             <img className='h-full w-full object-cover'  src="https://dennissnellenberg.com/media/pages/work/fabric/ac07564a5f-1688453092/thumbnail-fabric-darkgray-810x810-crop-q72.jpg" alt="" />
@@ -33,29 +44,12 @@ const TextDiv = () => {
         </div>
         
        <div>
-        <div className='relative'>
-       <div className='hover:px-[7vw] relative hover:text-gray-600 transition-all border-t-2 flex items-center justify-between px-[2vw] py-[2vw]'>
-            <div className='overlay h-full w-full absolute z-50 top-0 left-0'></div>
-            <h1 className='text-8xl uppercase z-10'>Twice</h1>
-            <h5 className='text-xl opacity-85 z-10'>Ineteraction & Development</h5>
-        </div>
-        <div className='hover:px-[7vw] relative hover:text-gray-600 transition-all border-t-2 flex items-center justify-between px-[2vw] py-[2vw]'>
-            <div className='overlay h-full w-full absolute z-50 top-0 left-0'></div>
-            <h1 className='text-8xl uppercase z-10'>Twice</h1>
-            <h5 className='text-xl opacity-85 z-10'>Ineteraction & Development</h5>
-        </div>
-        <div className='hover:px-[7vw] relative hover:text-gray-600 transition-all border-t-2 flex items-center justify-between px-[2vw] py-[2vw]'>
-            <div className='overlay h-full w-full absolute z-50 top-0 left-0'></div>
-            <h1 className='text-8xl uppercase z-10'>Twice</h1>
-            <h5 className='text-xl opacity-85 z-10'>Ineteraction & Development</h5>
-        </div>
-        <div className='hover:px-[7vw] relative hover:text-gray-600 transition-all border-t-2 flex items-center justify-between px-[2vw] py-[2vw]'>
-            <div className='overlay h-full w-full absolute z-50 top-0 left-0'></div>
-            <h1 className='text-8xl uppercase z-10'>Twice</h1>
-            <h5 className='text-xl opacity-85 z-10'>Ineteraction & Development</h5>
-        </div>
-        </div>
-        
+
+        {
+          textArray.map(function(elem,idx){
+            return <HoverText key={idx} translate={idx*100} h1={elem} setimageScroll={setimageScroll}/>
+          })
+        }
        </div>
     </div>
   )
